@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<script>
+        function toggleCaptions(buttonId) {
+            var captionsElement = document.getElementById("captions-" + buttonId);
+            if (captionsElement.style.display === "none") {
+                captionsElement.style.display = "block";
+            } else {
+                captionsElement.style.display = "none";
+            }
+        }
+    </script>
+    <h1>📚📚 View Saved Digests 📚📚</h1>
+    <div class="digests">
+        {% for digest in digests %}
+        <div class="digest">
+            <div class="timestamp">{{ digest[1] }}</div>
+            <div class="content">
+                <h2><a href="{{ digest[2] }}" target="_blank">{{ digest[3] }}</a></h2>
+                <button onclick="toggleCaptions('{{ loop.index }}')">Show Original Captions</button>
+                <p id="captions-{{ loop.index }}" style="display: none;">{{ digest[4] }}</p>
+                <p>{{ digest[5] }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        {% if digests.has_prev %}
+            <a href="{{ url_for('bp.view_digests', page=digests.prev_num) }}">Previous</a>
+        {% endif %}
+        {% if digests.has_next %}
+            <a href="{{ url_for('bp.view_digests', page=digests.next_num) }}">Next</a>
+        {% endif %}
+    </div>
+{% endblock %}

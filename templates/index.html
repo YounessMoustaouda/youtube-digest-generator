@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Generate Digest 🐣📚</h1>
+    <form action="{{ url_for('bp.generate_digest') }}" method="post">
+        <label for="video_url">YouTube Video URL:</label>
+        <input type="text" id="video_url" name="video_url" required>
+        <button type="submit">Generate Digest</button>
+    </form>
+{% endblock %}
